@@ -1,0 +1,13 @@
+site_name: DevOps Toolkit
+
+theme: cinder
+nav:
+- Home: index.md
+- About: about.md
+- Kubernetes:
+  - Basics: kubernetes/basics.md
+- Go Lang:
+  - How to implement Elasticsearch in Go: go/elastic-search.md
+
+plugins:
+    - search
