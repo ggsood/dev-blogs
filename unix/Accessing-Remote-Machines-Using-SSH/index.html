@@ -11,7 +11,7 @@
     <link rel="../../img/favicon.ico">
 
     
-    <title>How to implement Elasticsearch in Go - DevOps Toolkit</title>
+    <title>ssh-access - Dev Blogs</title>
     
 
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -61,7 +61,7 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="../..">DevOps Toolkit</a>
+            <a class="navbar-brand" href="../..">Dev Blogs</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -76,34 +76,13 @@
                 
                 
                 
-                    <li >
-                        <a href="../../about.md">About</a>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kubernetes <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../../kubernetes/basics/">Basics</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Go Lang <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Unix <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li class="active">
-    <a href="./">How to implement Elasticsearch in Go</a>
+    <a href="./">ssh-access</a>
 </li>
 
                         
@@ -120,7 +99,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../../kubernetes/basics/">
+                        <a rel="prev" href="../..">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -139,12 +118,50 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#elasticsearch-implementation-in-go-lang">Elasticsearch implementation in Go Lang</a></li>
+        <li class="first-level active"><a href="#accessing-remote-machines-using-ssh">Accessing Remote Machines Using SSH</a></li>
+            <li class="second-level"><a href="#ssh-keys">SSH Keys</a></li>
+                
+            <li class="second-level"><a href="#how-to-setup-ssh-keys">How to setup SSH keys</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="elasticsearch-implementation-in-go-lang">Elasticsearch implementation in Go Lang</h1></div>
+<h1 id="accessing-remote-machines-using-ssh">Accessing Remote Machines Using SSH</h1>
+<h3 id="ssh-keys">SSH Keys</h3>
+<p>One of the main advantages to using SSH are SSH keys. They are a cryptographic public/private key pair used for authentication. </p>
+<p>They always come in twos. The private key is stored on the client. The public key is stored on the remote machine.
+When a user makes an attempt to connect to a remote machine via SSH, the protocol will check the user’s computer for the private key that matches the public key stored on the remote machine. If there is a match, the connection is successful. No password needed! You can even add a passphrase for added security.</p>
+<h3 id="how-to-setup-ssh-keys">How to setup SSH keys</h3>
+<p><strong>Step 1: Generate SSH Keys</strong></p>
+<p><code>ssh-keygen -t rsa</code></p>
+<p><strong>Step 2: Name your SSH keys</strong></p>
+<p>After entering the command, you should get this output:</p>
+<pre><code>Generating public/private rsa key pair. 
+Enter file in which to save the key(/Users/&lt;local_user&gt;/.ssh/id_rsa)
+</code></pre>
+
+<p><code>&lt;local_user&gt;</code>  refers to your local computer's current user.</p>
+<p>The terminal instructs us to enter the name of a file in which we want our private key to be saved. </p>
+<p>You have 2 options:</p>
+<p>a. Choose the default filename id_rsa</p>
+<p>b. Provide your own unique filename</p>
+<p>Two important things to note here:</p>
+<p>If you plan on having multiple SSH keys, it’s best to name each one uniquely.</p>
+<p>If you decide to provide a unique filename, you must type in the complete file path along with the filename.</p>
+<p>Recommend to add a unique word after id_rsa that describes which remote machine the key will be used to connect to.</p>
+<p><strong>Step 3: Enter a passphrase (optional)</strong></p>
+<p>For added security over ssh.</p>
+<p><strong>Step 4: Move the public key to the remote machine</strong></p>
+<p>The public key has to be placed on whatever remote machine you plan on accessing via SSH.</p>
+<p>In your terminal, enter:</p>
+<pre><code>ssh-copy-id -i ~/.ssh/&lt;public_key_file&gt; &lt;user&gt;@&lt;remote machine&gt;
+</code></pre>
+
+<p>ssh-copy-id moves the public key file specified with -i ~/.ssh/<public_key_file> </p>
+<p><strong>Step 5: Test your connection</strong></p>
+<p>Go ahead and attempt to login to the remote machine using:
+<code>ssh &lt;user&gt;@&lt;remote machine&gt;</code></p></div>
         
         
     </div>
