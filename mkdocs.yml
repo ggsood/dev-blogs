@@ -1,13 +1,10 @@
-site_name: DevOps Toolkit
+site_name: Dev Blogs
 
 theme: cinder
 nav:
 - Home: index.md
-- About: about.md
-- Kubernetes:
-  - Basics: kubernetes/basics.md
-- Go Lang:
-  - How to implement Elasticsearch in Go: go/elastic-search.md
+- Unix:
+  - ssh-access: unix/Accessing-Remote-Machines-Using-SSH.md
 
 plugins:
     - search

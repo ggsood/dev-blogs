@@ -1,1 +1,0 @@
-# Elasticsearch implementation in Go Lang
