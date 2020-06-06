@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../../img/favicon.ico">
+
+    
+    <title>Installing docker ubuntu 20.04 - Dev Blogs</title>
+    
+
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+    <link href="../../css/highlight.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Open Sans', 'PT Sans']
+        }
+    });
+    </script>
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="../..">Dev Blogs</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Unix <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../unix/Accessing-Remote-Machines-Using-SSH/">ssh-access</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#how-to-install-and-use-docker-on-ubuntu-2004-digitalocean">How To Install and Use Docker on Ubuntu 20.04 | DigitalOcean</a></li>
+            <li class="second-level"><a href="#introduction">Introduction</a></li>
+                
+            <li class="second-level"><a href="#prerequisites">Prerequisites</a></li>
+                
+            <li class="second-level"><a href="#step-1-installing-docker">Step 1 — Installing Docker</a></li>
+                
+            <li class="second-level"><a href="#step-2-executing-the-docker-command-without-sudo-optional">Step 2 — Executing the Docker Command Without Sudo (Optional)</a></li>
+                
+            <li class="second-level"><a href="#step-3-using-the-docker-command">Step 3 — Using the Docker Command</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<blockquote>
+<p>Docker is an application that simplifies the process of managing application processes in containers. In this tutorial, you'll install and use Docker Community Edition (CE) on Ubuntu 20.04. You'll install Docker itself, work with containers and images</p>
+</blockquote>
+<h1 id="how-to-install-and-use-docker-on-ubuntu-2004-digitalocean">How To Install and Use Docker on Ubuntu 20.04 | DigitalOcean</h1>
+<h3 id="introduction">Introduction</h3>
+<p><a href="https://www.docker.com/">Docker</a> is an application that simplifies the process of managing application processes in <em>containers</em>. Containers let you run your applications in resource-isolated processes. They’re similar to virtual machines, but containers are more portable, more resource-friendly, and more dependent on the host operating system.</p>
+<p>For a detailed introduction to the different components of a Docker container, check out <a href="https://www.digitalocean.com/community/tutorials/the-docker-ecosystem-an-introduction-to-common-components">The Docker Ecosystem: An Introduction to Common Components</a>.</p>
+<p>In this tutorial, you’ll install and use Docker Community Edition (CE) on Ubuntu 20.04. You’ll install Docker itself, work with containers and images, and push an image to a Docker Repository.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>To follow this tutorial, you will need the following:</p>
+<ul>
+<li>One Ubuntu 20.04 server set up by following <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-20.04">the Ubuntu 20.04 initial server setup guide</a>, including a sudo non-root user and a firewall.</li>
+<li>An account on <a href="https://hub.docker.com/">Docker Hub</a> if you wish to create your own images and push them to Docker Hub, as shown in Steps 7 and 8.</li>
+</ul>
+<h2 id="step-1-installing-docker">Step 1 — Installing Docker</h2>
+<p>The Docker installation package available in the official Ubuntu repository may not be the latest version. To ensure we get the latest version, we’ll install Docker from the official Docker repository. To do that, we’ll add a new package source, add the GPG key from Docker to ensure the downloads are valid, and then install the package.</p>
+<p>First, update your existing list of packages:</p>
+<pre><code>sudo apt update
+</code></pre>
+<p>Next, install a few prerequisite packages which let <code>apt</code> use packages over HTTPS:</p>
+<pre><code>sudo apt install apt-transport-https ca-certificates curl software-properties-common
+</code></pre>
+<p>Then add the GPG key for the official Docker repository to your system:</p>
+<pre><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+</code></pre>
+<p>Add the Docker repository to APT sources:</p>
+<pre><code>sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+</code></pre>
+<p>Next, update the package database with the Docker packages from the newly added repo:</p>
+<pre><code>sudo apt update
+</code></pre>
+<p>Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:</p>
+<pre><code>apt-cache policy docker-ce
+</code></pre>
+<p>You’ll see output like this, although the version number for Docker may be different:</p>
+<p>Output of apt-cache policy docker-ce</p>
+<pre><code>docker-ce:
+  Installed: (none)
+  Candidate: 5:19.03.9~3-0~ubuntu-focal
+  Version table:
+     5:19.03.9~3-0~ubuntu-focal 500
+        500 https://download.docker.com/linux/ubuntu focal/stable amd64 Packages
+</code></pre>
+<p>Notice that <code>docker-ce</code> is not installed, but the candidate for installation is from the Docker repository for Ubuntu 20.04 (<code>focal</code>).</p>
+<p>Finally, install Docker:</p>
+<pre><code>sudo apt install docker-ce
+</code></pre>
+<p>Docker should now be installed, the daemon started, and the process enabled to start on boot. Check that it’s running:</p>
+<pre><code>sudo systemctl status docker
+</code></pre>
+<p>The output should be similar to the following, showing that the service is active and running:</p>
+<pre><code>Output● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Tue 2020-05-19 17:00:41 UTC; 17s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 24321 (dockerd)
+      Tasks: 8
+     Memory: 46.4M
+     CGroup: /system.slice/docker.service
+             └─24321 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+</code></pre>
+<p>Installing Docker now gives you not just the Docker service (daemon) but also the <code>docker</code> command line utility, or the Docker client. We’ll explore how to use the <code>docker</code> command later in this tutorial.</p>
+<h2 id="step-2-executing-the-docker-command-without-sudo-optional">Step 2 — Executing the Docker Command Without Sudo (Optional)</h2>
+<p>By default, the <code>docker</code> command can only be run the <strong>root</strong> user or by a user in the <strong>docker</strong> group, which is automatically created during Docker’s installation process. If you attempt to run the <code>docker</code> command without prefixing it with <code>sudo</code> or without being in the <strong>docker</strong> group, you’ll get an output like this:</p>
+<pre><code>Outputdocker: Cannot connect to the Docker daemon. Is the docker daemon running on this host?.
+See 'docker run --help'.
+</code></pre>
+<p>If you want to avoid typing <code>sudo</code> whenever you run the <code>docker</code> command, add your username to the <code>docker</code> group:</p>
+<pre><code>sudo usermod -aG docker ${USER}
+</code></pre>
+<p>To apply the new group membership, log out of the server and back in, or type the following:</p>
+<pre><code>su - ${USER}
+</code></pre>
+<p>You will be prompted to enter your user’s password to continue.</p>
+<p>Confirm that your user is now added to the <strong>docker</strong> group by typing:</p>
+<pre><code>id -nG
+
+
+Outputsammy sudo docker
+</code></pre>
+<p>If you need to add a user to the <code>docker</code> group that you’re not logged in as, declare that username explicitly using:</p>
+<pre><code>sudo usermod -aG docker username
+</code></pre>
+<p>The rest of this article assumes you are running the <code>docker</code> command as a user in the <strong>docker</strong> group. If you choose not to, please prepend the commands with <code>sudo</code>.</p>
+<p>Let’s explore the <code>docker</code> command next.</p>
+<h2 id="step-3-using-the-docker-command">Step 3 — Using the Docker Command</h2>
+<p>Using <code>docker</code> consists of passing it a chain of options and commands followed by arguments. The syntax takes this form:</p>
+<pre><code>docker [option] [command] [arguments]
+</code></pre>
+<p>To view all available subcommands, type:</p>
+<pre><code>docker
+</code></pre>
+<p>As of Docker 19, the complete list of available subcommands includes:</p>
+<pre><code>Output  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+</code></pre>
+<p>To view the options available to a specific command, type:</p>
+<pre><code>docker docker-subcommand --help
+</code></pre>
+<p>To view system-wide information about Docker, use:</p>
+<pre><code>docker info
+</code></pre></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <hr>
+        <p>
+        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+
+        
+        
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = "../.."</script>
+    
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

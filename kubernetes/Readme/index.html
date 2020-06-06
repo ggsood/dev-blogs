@@ -8,20 +8,20 @@
     
     
     
-    <link rel="img/favicon.ico">
+    <link rel="../../img/favicon.ico">
 
     
-    <title>Home - Dev Blogs</title>
+    <title>Readme - Dev Blogs</title>
     
 
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
     <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="css/base.min.css" rel="stylesheet">
-    <link href="css/cinder.min.css" rel="stylesheet">
-    <link href="css/highlight.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/base.min.css" rel="stylesheet">
+    <link href="../../css/cinder.min.css" rel="stylesheet">
+    <link href="../../css/highlight.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -43,7 +43,7 @@
      
 </head>
 
-<body class="homepage" >
+<body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -61,7 +61,7 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href=".">Dev Blogs</a>
+            <a class="navbar-brand" href="../..">Dev Blogs</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -70,8 +70,8 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li class="active">
-                        <a href=".">Home</a>
+                    <li >
+                        <a href="../..">Home</a>
                     </li>
                 
                 
@@ -82,7 +82,7 @@
                         
                             
 <li >
-    <a href="unix/Accessing-Remote-Machines-Using-SSH/">ssh-access</a>
+    <a href="../../unix/Accessing-Remote-Machines-Using-SSH/">ssh-access</a>
 </li>
 
                         
@@ -98,16 +98,6 @@
                             <i class="fas fa-search"></i> Search
                         </a>
                     </li>
-                    <li class="disabled">
-                        <a rel="prev" >
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="next" href="unix/Accessing-Remote-Machines-Using-SSH/">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </li>
             </ul>
         </div>
     </div>
@@ -118,13 +108,56 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#welcome-to-dev-blogs">Welcome to Dev Blogs</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="welcome-to-dev-blogs">Welcome to Dev Blogs</h1>
-<p>Various topics gathered from around the internet can be found here.</p></div>
+<p>Day 1 - 23rd Dec 2019</p>
+<p>High level agenda</p>
+<ul>
+<li>
+<p>Go through Mumshad all k8s notes</p>
+</li>
+<li>
+<p>Create K8s cluster using kthw and kubeadm
+a. Create K8s cluster using kubeadm in LA.</p>
+</li>
+</ul>
+<p>As exam will be based on Ubuntu 16 machines so will be spawning 4 nodes using kubeadm</p>
+<p>Setup in mind -</p>
+<p>a. Initially go with 1 master node and 3 worker nodes, with each node having different labels to test various conditions.</p>
+<p>Going via the documentation - main k8s docs are divided into</p>
+<ol>
+<li>Getting started -- CNI used Weave - use all </li>
+<li>Contains release notes</li>
+<li>Getting started with minikube - simple k8s commands w.r.t minikube</li>
+<li>Details about production runtime - installing cri includes docker, cri-o, containerd <ol>
+<li>Refer for steps if need to install docker</li>
+</ol>
+</li>
+<li>Installing k8s with tools including kubeadm, kops, krib, kubespray.
+      a. Main focus is on kubeadm as it will be covered in the exam
+         1. information about the ports for different k8s components is present here, and installing kubeadm itself
+         2. kubeadm cluster init, token and join with worker nodes
+            1. <code>netstat -nlpt|grep :10250</code> --&gt; to check if a port is currently in use
+         3. creating HA kubeadm cluster 
+            1. Topology Same ETCD same API server , use upload certs and then use the command to join with other nodes,
+                use private ip of first etcd or use dns of loadbalancer
+                    <code>kubeadm init --control-plane-endpoint "172.31.105.97:6443" --upload-certs</code>
+            2. Separte ETCD servers refer to file and configure separte etcd urls
+                <code>kubeadm config print init-default</code>
+                use command 
+                <code>kubeadm init --config kubeadm-config.yaml --upload-certs</code> then to create the cluster and install CNI
+      b. Turnkey solutions , on premise and windows<ol>
+<li>Best Practices - Read them </li>
+<li>Important information about the certificates that needs to be generated for different k8s component is mentioned, refer to this page when doing <strong>KTHW</strong></li>
+</ol>
+</li>
+<li>Concepts</li>
+<li>Tasks</li>
+<li>Tutorials</li>
+<li>Reference</li>
+</ol></div>
         
         
     </div>
@@ -139,13 +172,13 @@
         
     </footer>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/bootstrap-3.0.3.min.js"></script>
-    <script src="js/highlight.pack.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script>var base_url = "."</script>
+    <script>var base_url = "../.."</script>
     
-    <script src="js/base.js"></script>
-    <script src="search/main.js"></script>
+    <script src="../../js/base.js"></script>
+    <script src="../../search/main.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -213,8 +246,3 @@
     </body>
 
 </html>
-
-<!--
-MkDocs version : 1.1
-Build Date UTC : 2020-06-06 15:54:57
--->
